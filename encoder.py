@@ -1,0 +1,1 @@
+## Functions to encrypt a message into a DNA sequence, then translate it into an amino acid sequence

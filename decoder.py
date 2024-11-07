@@ -1,0 +1,1 @@
+## Functions to decompose an amino acid sequence into its DNA sequence form, and then decrypt it to the original message
