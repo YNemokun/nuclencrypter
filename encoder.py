@@ -34,7 +34,6 @@ def encode(message): #step 1
     encoded += encode_dict[char]
   return ''.join(encoded)
 
-
 def reverse_complement(dna): #step 2
   dna = dna[::-1]
   dict = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
@@ -95,6 +94,6 @@ def main():
         encrypted, password = encrypt(message)
         file_out.write(f"{encrypted} {password}\n")
       
-  
+
 if __name__ == "__main__":
-   main()
+  main()
