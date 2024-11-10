@@ -75,8 +75,7 @@ def encrypt(message): #function to encrypt a given message
   encoded = encode(message)
   reversed = reverse_complement(encoded)
   permuted = permute(right_shift(reversed))
-  encrypted, password = get_bwt(permuted)
-  return encrypted, password
+  return get_bwt(permuted)
 
 
 def main():
