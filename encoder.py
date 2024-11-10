@@ -1,5 +1,5 @@
 ## Functions to encrypt a message into a DNA sequence
-# 1) encoding table 2) reverse complement 3) right shift 4) permutation
+# 1) encoding table 2) reverse complement 3) right shift 4) permutation 5) BWT
 import sys
 
 def encode(message): #step 1
@@ -58,20 +58,26 @@ def permute(dna): #step 4
     substrings.append(dna[start:end])
     start = end
   pattern = [1, 3, 0, 2]
-  print(substrings)
   for p in pattern:
     permuted += substrings[p] 
   return ''.join(permuted)
 
+def get_bwt(dna): #step 5 
+  dna += '$'
+  bwm = [dna[i:] + dna[:i] for i in range(len(dna))]
+  bwm = sorted(bwm)
+  bwt = ''.join(rotation[-1] for rotation in bwm) 
+  dollar_index = bwt.index('$') 
+  bwt = bwt.replace("$", "")
+  return bwt, dollar_index
+  
 
-def encrypt(message):
+def encrypt(message): #function to encrypt a given message
   encoded = encode(message)
   reversed = reverse_complement(encoded)
-  encrypted = permute(right_shift(reversed))
-  #print(reversed)
-  #print(encoded)
-  #print(encrypted)
-  return encrypted
+  permuted = permute(right_shift(reversed))
+  encrypted, password = get_bwt(permuted)
+  return encrypted, password
 
 
 def main():
@@ -86,9 +92,8 @@ def main():
     with open(output_file, 'w') as file_out:
       for line in input_messages:
         message = line.strip() #string of message to encode
-        encrypted = encrypt(message)
-        file_out.write(encrypted)
-        file_out.write('\n')
+        encrypted, password = encrypt(message)
+        file_out.write(f"{encrypted} {password}\n")
       
   
 if __name__ == "__main__":
