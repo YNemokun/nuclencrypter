@@ -74,13 +74,14 @@ def get_bwt(dna): #step 5
 def encrypt(message): #function to encrypt a given message
   encoded = encode(message)
   reversed = reverse_complement(encoded)
+  print(reversed)
   permuted = permute(right_shift(reversed))
   return get_bwt(permuted)
 
 
 def main():
   if len(sys.argv) != 3:
-    print("Usage: python3 excoder.py <messages.txt> <output_file>")
+    print("Usage: python3 encoder.py <messages.txt> <output_file>")
     sys.exit(1)
   
   input_file = sys.argv[1]
@@ -92,6 +93,7 @@ def main():
         message = line.strip() #string of message to encode
         encrypted, password = encrypt(message)
         file_out.write(f"{encrypted} {password}\n")
+
       
 
 if __name__ == "__main__":
