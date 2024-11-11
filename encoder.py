@@ -74,7 +74,6 @@ def get_bwt(dna): #step 5
 def encrypt(message): #function to encrypt a given message
   encoded = encode(message)
   reversed = reverse_complement(encoded)
-  print(reversed)
   permuted = permute(right_shift(reversed))
   return get_bwt(permuted)
 
