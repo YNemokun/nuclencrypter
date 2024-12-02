@@ -1,5 +1,6 @@
 ## Functions to decompose an amino acid sequence into its DNA sequence form, and then decrypt it to the original message
 import sys
+import ast
 
 def reverse_bwt(bwt, pos): # Step 1: reverse bwt operations
     # add $ back to the string
@@ -27,10 +28,11 @@ def reverse_bwt(bwt, pos): # Step 1: reverse bwt operations
         row = firstCol.find(bwt[row]) + rank
     return text[::-1]
 
-def reverse_permute(dna): # Step 2: reverse permutations
+
+
+def reverse_permute(dna, pattern): # Step 2: reverse permutations
   # permuted pattern
-  pattern = [1, 3, 0, 2]
-  permuted = []
+  permuted = [None]*4
   substr_len = len(dna) // 4
   substrings = []
   start = 0
@@ -38,10 +40,8 @@ def reverse_permute(dna): # Step 2: reverse permutations
     end = start + substr_len 
     substrings.append(dna[start:end])
     start = end
-  
   for i in range(len(pattern)):
-    permuted.insert(pattern[i], substrings[i])  
-  
+    permuted[pattern[i]]  = substrings[i]  
   return ''.join(permuted)
 
 
@@ -94,13 +94,14 @@ def decode(message): # Step 5
   return ''.join(decode)
 
 
-
 def decrypt(message):
-  msg = message.split(" ")
+  msg = message.split(" ", 2)
   pos = int(msg[1])
+  pattern = ast.literal_eval(msg[2])
   decoded = reverse_bwt(msg[0], pos)
-  reverse_permutation = left_shift(reverse_permute(decoded))
-  reverse_comp = reverse_complement(reverse_permutation)
+  reverse_permutation = reverse_permute(decoded, pattern)
+  left_shifted = left_shift(reverse_permutation)
+  reverse_comp = reverse_complement(left_shifted)
   decrypted = decode(reverse_comp)
   return decrypted
 

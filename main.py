@@ -17,8 +17,8 @@ with open(input_file, 'r') as input_messages:
     with open(encode_output_file, 'w') as file_out:
         for line in input_messages:
             message = line.strip() #string of message to encode
-            encrypted, password = encrypt(message)
-            file_out.write(f"{encrypted} {password}\n")
+            encrypted, password, pattern = encrypt(message)
+            file_out.write(f"{encrypted} {password} {pattern}\n")
 # Read input file
 
 # Apply encoder method
