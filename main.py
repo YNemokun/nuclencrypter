@@ -1,7 +1,8 @@
 from encoder import encrypt
 from decoder import decrypt
 import sys
-
+import numpy as np
+import random
 
 if len(sys.argv) != 4:
     print("Usage: python3 main.py <message.txt> <encode_output_file> <decode_output_file")
