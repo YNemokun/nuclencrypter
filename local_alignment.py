@@ -8,7 +8,7 @@ def find_edit_distance(a, b): #dynamic programming for pairwise local alignment
   for i in range(1, len(a) + 1):
     for j in range(1, len(b) + 1):
       delta = (0 if a[i - 1] == b[j - 1] else 4)
-      dp[i,j] = min(dp[i-1, j] + 8, dp[i, j-1] + 8, dp[i - 1, j - 1] + delta)
+      dp[i,j] = min(dp[i-1, j] + 12, dp[i, j-1] + 12, dp[i - 1, j - 1] + delta)
   return dp[len(a), len(b)]
 
 def find_optimal(read_list): #find optimal sequence by minimizing edit distance

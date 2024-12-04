@@ -25,27 +25,33 @@ if flag == 'e':
     encode_output_file = sys.argv[3]
     with open(input_file, 'r') as input_messages:
         with open(encode_output_file, 'w') as file_out:
+            print("Encrypting messages...")
             for line in input_messages:
                 message = line.strip() #string of message to encode
                 #encrypted, password, pattern = encrypt(message)
                 encrypted, pattern = encrypt(message)
                 #file_out.write(f"{encrypted} {password} {pattern}\n")
                 file_out.write(f"{encrypted} {pattern}\n")
+            print("Encryption completed!")
 
 #simulate sequencing, find optimal sequence, and decode an encrypted dna sequences into messages
 elif flag == 'd':
     decode_output_file = sys.argv[3]
     #open encrypted DNA for simulated sequencing 
     simulated_sequences = 'simulated_seqs.txt'
+    print("(1/3) Simulating sequencing...")
     simulate_sequencing(input_file, simulated_sequences)
     #find optimal sequence and decrypt 
     optimal_sequences = 'optimal_seqs.txt'
     with open(decode_output_file, 'w') as file_out:
+        print("(2/3) Selecting optimal sequences...")
         parser(simulated_sequences, optimal_sequences)
         with open(optimal_sequences, 'r') as optimal_seqs:
+            print("(3/3) Decrypting DNA into messages...")
             for line in optimal_seqs:
                 message = line.strip() # message to decode
                 decrypted = decrypt(message)
                 file_out.write(decrypted)
                 file_out.write('\n')
+            print("Decryption completed!")
 
