@@ -1,2 +1,0 @@
-Error: a deletion happened and the position of the '$' is now out of bound.
-2*Dv**
