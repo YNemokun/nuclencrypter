@@ -26,8 +26,6 @@ def simulate_sequencing(input_file, output_file): #function to simulate sequenci
       stripped_line = line.strip()
       if stripped_line: #skip empty lines
         parts = stripped_line.split(maxsplit=2)
-        if len(parts) < 3:
-            raise ValueError("Each line must have at least 3 parts: sequence, key, and pattern.")
         sequence = parts[0]
         key = parts[1]
         pattern = parts[2]

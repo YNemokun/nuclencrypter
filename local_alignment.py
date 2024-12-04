@@ -7,8 +7,8 @@ def find_edit_distance(a, b): #dynamic programming for pairwise local alignment
   dp[0, 1:] = range(1, len(b) + 1)
   for i in range(1, len(a) + 1):
     for j in range(1, len(b) + 1):
-      delta = (0 if a[i - 1] == b[j - 1] else 1)
-      dp[i,j] = min(dp[i-1, j] + 1, dp[i, j-1] + 1, dp[i - 1, j - 1] + delta)
+      delta = (0 if a[i - 1] == b[j - 1] else 2)
+      dp[i,j] = min(dp[i-1, j] + 8, dp[i, j-1] + 8, dp[i - 1, j - 1] + delta)
   return dp[len(a), len(b)]
 
 def find_optimal(read_list): #find optimal sequence by minimizing edit distance
@@ -35,6 +35,11 @@ def parser(input_file, output_file): #preprocess input data
         processed_chunk.append((sequence, key, pattern)) #list of 5 tuples
       optimal_idx = find_optimal(processed_chunk)
       optimal_read = processed_chunk[optimal_idx]
+      remainder = len(optimal_read[0]) % 4 #check if length of ptimal read is a multiple of 4
+      if remainder != 0: # if not, append N's to make its length a multiple of 4 
+        temp = optimal_read[0]
+        temp += 'N' * (4 - remainder)
+        optimal_read = (temp, *optimal_read[1:])
       out_f.write(f"{optimal_read[0]} {optimal_read[1]} {optimal_read[2]}\n") 
         
 
