@@ -3,6 +3,10 @@ import sys
 import ast
 
 def reverse_bwt(bwt, pos): # Step 1: reverse bwt operations
+    # Error case: if there is a deletion and the position of "$" is out of bound
+    if pos > len(bwt):
+      raise IndexError("Error: a deletion happened and the position of the '$' is now out of bound.")
+      
     # add $ back to the string
     bwt = bwt[:pos] + "$" + bwt[pos:]
     # count the frequency of each character
@@ -56,6 +60,8 @@ def reverse_complement(dna): # Step 4
   for char in dna:
     if char in dict:
       result.append(dict[char])
+    else: # in case of indels
+      result.append(char)
   result = ''.join(result)
   return result
 
@@ -90,20 +96,31 @@ def decode(message): # Step 5
   decode = []
 
   for i in range(0, len(message) - 3, 4):
-    decode += decode_dict[message[i:i + 4]]
+    try:
+      decode.append(decode_dict[message[i:i + 4]])
+    except KeyError: # in case of an indel
+      decode.append("*")
+      continue
   return ''.join(decode)
 
 
 def decrypt(message):
+  # msg = message.split(" ", 1)
+  # pattern = ast.literal_eval(msg[1])
   msg = message.split(" ", 2)
   pos = int(msg[1])
   pattern = ast.literal_eval(msg[2])
-  decoded = reverse_bwt(msg[0], pos)
-  reverse_permutation = reverse_permute(decoded, pattern)
-  left_shifted = left_shift(reverse_permutation)
-  reverse_comp = reverse_complement(left_shifted)
-  decrypted = decode(reverse_comp)
-  return decrypted
+  try:
+    decoded = reverse_bwt(msg[0], pos)
+    reverse_permutation = reverse_permute(decoded, pattern)
+    # reverse_permutation = reverse_permute(msg[0], pattern)
+    left_shifted = left_shift(reverse_permutation)
+    reverse_comp = reverse_complement(left_shifted)
+    decrypted = decode(reverse_comp)
+    return decrypted
+  except IndexError as e:
+    return str(e) 
+
 
 
 def main():
