@@ -28,11 +28,14 @@ def parser(input_file, output_file): #preprocess input data
       if not chunk: break
       processed_chunk = []
       for line in chunk:
-        entry = line.split(maxsplit=2)
+        #entry = line.split(maxsplit=2)
+        entry = line.split(maxsplit=1)
         sequence = entry[0]
-        key = int(entry[1])
-        pattern = eval(entry[2])
-        processed_chunk.append((sequence, key, pattern)) #list of 5 tuples
+        #key = int(entry[1])
+        #pattern = eval(entry[2])
+        pattern  = eval(entry[1])
+        #processed_chunk.append((sequence, key, pattern)) #list of 5 tuples
+        processed_chunk.append((sequence, pattern)) #list of 5 tuples
       optimal_idx = find_optimal(processed_chunk)
       optimal_read = processed_chunk[optimal_idx]
       remainder = len(optimal_read[0]) % 4 #check if length of ptimal read is a multiple of 4
@@ -40,7 +43,8 @@ def parser(input_file, output_file): #preprocess input data
         temp = optimal_read[0]
         temp += 'N' * (4 - remainder)
         optimal_read = (temp, *optimal_read[1:])
-      out_f.write(f"{optimal_read[0]} {optimal_read[1]} {optimal_read[2]}\n") 
+      #out_f.write(f"{optimal_read[0]} {optimal_read[1]} {optimal_read[2]}\n") 
+      out_f.write(f"{optimal_read[0]} {optimal_read[1]}\n") 
         
 
 def main():

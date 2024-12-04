@@ -81,8 +81,8 @@ def encrypt(message): #function to encrypt a given message
   right_shifted = right_shift(reversed)
   permuted, pattern = permute(right_shifted)
   bwt = get_bwt(permuted)
-  return bwt[0], bwt[1], pattern
-  # return permuted, pattern
+  #turn bwt[0], bwt[1], pattern
+  return permuted, pattern
 
 
 def main():
@@ -97,10 +97,10 @@ def main():
     with open(output_file, 'w') as file_out:
       for line in input_messages:
         message = line.strip() #string of message to encode
-        # encrypted, pattern = encrypt(message)
-        # file_out.write(f"{encrypted} {pattern}\n")   
-        encrypted, password, pattern = encrypt(message)
-        file_out.write(f"{encrypted} {password} {pattern}\n")   
+        encrypted, pattern = encrypt(message)
+        file_out.write(f"{encrypted} {pattern}\n")   
+        #encrypted, password, pattern = encrypt(message)
+        #file_out.write(f"{encrypted} {password} {pattern}\n")    
 
 if __name__ == "__main__":
   main()

@@ -1,7 +1,7 @@
 import sys
 import random
 
-def introduce_errors(sequence, substitution_rate=0.001, indel_rate=0.0001): #return dna string with error introduced
+def introduce_errors(sequence, substitution_rate=0, indel_rate=0): #return dna string with error introduced
   bases = ['A', 'C', 'G', 'T']
   new_sequence = []
 
@@ -25,13 +25,16 @@ def simulate_sequencing(input_file, output_file): #function to simulate sequenci
     for line in infile:
       stripped_line = line.strip()
       if stripped_line: #skip empty lines
-        parts = stripped_line.split(maxsplit=2)
+        #parts = stripped_line.split(maxsplit=2)
+        parts = stripped_line.split(maxsplit=1)
         sequence = parts[0]
-        key = parts[1]
-        pattern = parts[2]
+        pattern = parts[1]
+        #key = parts[1]
+        #pattern = parts[2]
         for i in range(5):
-          error_sequence = introduce_errors(sequence, 0.1, 0.05)
-          outfile.write(f"{error_sequence} {key} {pattern}\n")
+          error_sequence = introduce_errors(sequence, 0.01, 0.005)
+          #outfile.write(f"{error_sequence} {key} {pattern}\n")
+          outfile.write(f"{error_sequence} {pattern}\n")
 
 def main():
   if len(sys.argv) != 3:

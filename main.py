@@ -27,8 +27,10 @@ if flag == 'e':
         with open(encode_output_file, 'w') as file_out:
             for line in input_messages:
                 message = line.strip() #string of message to encode
-                encrypted, password, pattern = encrypt(message)
-                file_out.write(f"{encrypted} {password} {pattern}\n")
+                #encrypted, password, pattern = encrypt(message)
+                encrypted, pattern = encrypt(message)
+                #file_out.write(f"{encrypted} {password} {pattern}\n")
+                file_out.write(f"{encrypted} {pattern}\n")
 
 #simulate sequencing, find optimal sequence, and decode an encrypted dna sequences into messages
 elif flag == 'd':

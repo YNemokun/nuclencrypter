@@ -105,15 +105,15 @@ def decode(message): # Step 5
 
 
 def decrypt(message):
-  # msg = message.split(" ", 1)
-  # pattern = ast.literal_eval(msg[1])
-  msg = message.split(" ", 2)
-  pos = int(msg[1])
-  pattern = ast.literal_eval(msg[2])
+  msg = message.split(" ", 1)
+  pattern = ast.literal_eval(msg[1])
+  #msg = message.split(" ", 2)
+  #pos = int(msg[1])
+  #pattern = ast.literal_eval(msg[2])
   try:
-    decoded = reverse_bwt(msg[0], pos)
-    reverse_permutation = reverse_permute(decoded, pattern)
-    # reverse_permutation = reverse_permute(msg[0], pattern)
+    #decoded = reverse_bwt(msg[0], pos)
+    #reverse_permutation = reverse_permute(decoded, pattern)
+    reverse_permutation = reverse_permute(msg[0], pattern)
     left_shifted = left_shift(reverse_permutation)
     reverse_comp = reverse_complement(left_shifted)
     decrypted = decode(reverse_comp)
