@@ -1,7 +1,7 @@
 import sys
 import random
 
-def introduce_errors(sequence, substitution_rate=0.1, indel_rate=0.05): #return dna string with error introduced
+def introduce_errors(sequence, substitution_rate=0.001, indel_rate=0.0001): #return dna string with error introduced
   bases = ['A', 'C', 'G', 'T']
   new_sequence = []
 

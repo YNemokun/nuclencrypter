@@ -7,7 +7,7 @@ def find_edit_distance(a, b): #dynamic programming for pairwise local alignment
   dp[0, 1:] = range(1, len(b) + 1)
   for i in range(1, len(a) + 1):
     for j in range(1, len(b) + 1):
-      delta = (0 if a[i - 1] == b[j - 1] else 2)
+      delta = (0 if a[i - 1] == b[j - 1] else 4)
       dp[i,j] = min(dp[i-1, j] + 8, dp[i, j-1] + 8, dp[i - 1, j - 1] + delta)
   return dp[len(a), len(b)]
 
